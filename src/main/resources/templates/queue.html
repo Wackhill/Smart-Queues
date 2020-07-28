@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/all-css.css}"/>
+    <title>Queue</title>
+
+<!--    <script th:src="@{/js/sockjs-0.3.4.js}"></script>-->
+<!--    <script th:src="@{/js/stomp.js}"></script>-->
+<!--    <script type="text/javascript">-->
+<!--        let stompClient = null;-->
+
+<!--        function setConnected(connected) {-->
+<!--            document.getElementById('lamp').style.visibility = connected ? 'visible' : 'hidden';-->
+<!--            setLampState(String(${room.lampOn}) ? 'true' : 'false');-->
+<!--            console.log("Connected");-->
+<!--        }-->
+
+<!--        function connect() {-->
+<!--            let socket = new SockJS('/switch');-->
+<!--            stompClient = Stomp.over(socket);-->
+<!--            stompClient.connect({}, function(frame) {-->
+<!--                setConnected(true);-->
+<!--                stompClient.subscribe('/room/switch-state/${room.id}', function(roomState) {-->
+<!--                    setLampState(String(JSON.parse(roomState.body).lampOn));-->
+<!--                });-->
+<!--            });-->
+<!--        }-->
+
+<!--        function switchLampState() {-->
+<!--            stompClient.send("/lamp/switch", {}, JSON.stringify({ "id": ${room.id} }));-->
+<!--        }-->
+
+<!--        document.addEventListener('DOMContentLoaded', function() {-->
+<!--            connect();-->
+<!--        }, false);-->
+
+<!--        function setLampState(lampState) {-->
+<!--            if (lampState === "true") {-->
+<!--                document.getElementById("lamp").setAttribute("src", "${pageContext.request.contextPath}/res/pictures/lamp-on.png")-->
+<!--            }-->
+<!--            else {-->
+<!--                document.getElementById("lamp").setAttribute("src", "${pageContext.request.contextPath}/res/pictures/lamp-off.png")-->
+<!--            }-->
+<!--        }-->
+
+<!--        function selectPlace(placeNumber) {-->
+
+<!--        }-->
+
+<!--    </script>-->
+</head>
+
+<script>
+    function setCountdownTimer(viewName, countdownTime) {
+        setInterval(function () {
+            let i;
+            let now = new Date().getTime();
+            let distance = countdownTime - now;
+            let days = Math.floor(distance / (1000 * 60 * 60 * 24)) + '';
+
+            for (i = 2; i > days.length; i--) {
+                days = '0' + days
+            }
+
+            let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + '';
+            for (i = 2; i > hours.length; i--) {
+                hours = '0' + hours
+            }
+
+            let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) + '';
+            for (i = 2; i > minutes.length; i--) {
+                minutes = '0' + minutes
+            }
+
+            let seconds = Math.floor((distance % (1000 * 60)) / 1000) + '';
+            for (i = 2; i > seconds.length; i--) {
+                seconds = '0' + seconds
+            }
+
+            document.getElementById(viewName).innerHTML = days + ":" + hours + ":" + minutes + ":" + seconds;
+            if (distance < 0) {
+                document.getElementById(viewName).innerHTML = "SMASH!";
+            }
+        }, 1000);
+    }
+
+</script>
+
+<body>
+<div class="header">
+    <h1 id="timer"> </h1>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        setCountdownTimer("timer", /*[[${queue.getRegistrationStartNanoseconds()}]]*/ '9999999999999');
+        /*]]>*/
+    </script>
+</div>
+
+<article>
+    <div style="text-align: center; font-size: large"><p th:text="${queue.getTitle()}">!</p></div>
+    <hr>
+
+    <form method="POST">
+
+        <div th:each="data, iterstat: ${queue.getUsers()}">
+            <button type="submit"
+                    th:class="${data == null} ? 'button-free' : 'button-taken'"
+                    th:text="${data == null} ? '#' + ${iterstat.index + 1} + ' is free' : ${data}"
+                    th:disabled="${data != null}"
+                    th:onclick="selectPlace(${iterstat})"
+            >#</button>
+        </div>
+    </form>
+</article>
+
+<div class="footer">
+    <h3>Created by Andrei Shpakovskiy</h3>
+</div>
+</body>
+</html>

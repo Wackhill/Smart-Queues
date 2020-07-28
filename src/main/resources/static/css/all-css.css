@@ -1,0 +1,136 @@
+*{
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial;
+    padding: 10px;
+    background: linear-gradient(to right, #dea16a , #c19dc9);
+}
+
+.header {
+    padding: 3%;
+    text-align: center;
+    background: white;
+    margin-left: 15%;
+    margin-right: 15%;
+    border-radius: 20px;
+}
+
+.header h1 {
+    font-size: 50px;
+}
+
+.footer {
+    padding: 2%;
+    text-align: center;
+    background: #ddd;
+    margin-top: 20px;
+    margin-left: 15%;
+    margin-right: 15%;
+    border-radius: 20px;
+}
+
+body article {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+    margin-left: 15%;
+    margin-right: 15%;
+    border-radius: 20px;
+}
+
+input[type=text], input[type=number], input[type=date], input[type=time] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+    border-radius: 15px;
+    font-size: medium;
+}
+
+input[type=date] {
+    width: 49%;
+}
+
+input[type=time] {
+    margin-left: 1.5%;
+    width: 49%;
+}
+
+input[type=text]:focus, input[type=number]:focus, input[type=date], input[type=time] {
+    outline: none;
+}
+
+label {
+    margin-left: 5px;
+}
+
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+
+.new-queue-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+    margin-left: 25%;
+    opacity: 0.9;
+    border-radius: 30px;
+    font-size: large;
+    font-weight: bold;
+    align-self: center;
+}
+
+.new-queue-button:hover {
+    opacity: 1;
+}
+
+.button-free {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    margin-left: 2.5%;
+    width: 95%;
+    opacity: 0.9;
+    border-radius: 30px;
+    font-size: larger;
+    align-self: center;
+}
+
+.button-taken {
+    background-color: #DB4E4E;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    margin-left: 2.5%;
+    width: 95%;
+    opacity: 0.9;
+    border-radius: 30px;
+    font-size: larger;
+    align-self: center;
+}
+
+.button-free:hover, .button-taken:hover {
+    opacity: 1;
+}
+
+button[type=submit]:focus {
+    background-color: #898989;
+    outline: none;
+}
+
+.centered-p {
+    text-align: center;
+}
